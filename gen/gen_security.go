@@ -143,6 +143,9 @@ func (g *Generator) generateSecurity(ctx *genctx, operationName string, spec ope
 	// Do not create a type for custom security.
 	if security.XOgenCustomSecurity {
 		s.Format = ir.CustomSecurityFormat
+		s.Scopes = map[string][]string{
+			operationName: spec.Scopes,
+		}
 		return s, nil
 	}
 

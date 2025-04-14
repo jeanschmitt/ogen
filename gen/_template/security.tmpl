@@ -98,6 +98,10 @@ func (s *Server) security{{ $s.Type.Name }}(ctx context.Context, operationName O
 		}
 		t.Token = token
         t.Roles = operationRoles{{ $s.Type.Name }}[operationName]
+	{{- else if $s.Format.IsOtherHTTPSecurity }}
+		var t {{ $s.Type.Name }}
+		t.Request = req
+		t.Roles = operationRoles{{ $s.Type.Name }}[operationName]
 	{{- else if $s.Format.IsOAuth2Security }}
 		var t {{ $s.Type.Name }}
 		token, ok := findAuthorization(req.Header, "Bearer")

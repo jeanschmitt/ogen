@@ -54,6 +54,8 @@ const (
 	//
 	// Unsupported yet.
 	DigestHTTPSecurityFormat SecurityFormat = "digest"
+	// OtherHTTPSecurityFormat is any other HTTP security format.
+	OtherHTTPSecurityFormat SecurityFormat = "otherHttp"
 
 	// Oauth2SecurityFormat is Oauth2 security format.
 	Oauth2SecurityFormat SecurityFormat = "oauth2"
@@ -80,6 +82,11 @@ func (s SecurityFormat) IsBasicHTTPSecurity() bool {
 // IsDigestHTTPSecurity whether s is DigestHTTPSecurityFormat.
 func (s SecurityFormat) IsDigestHTTPSecurity() bool {
 	return s == DigestHTTPSecurityFormat
+}
+
+// IsOtherHTTPSecurity whether s is OtherHTTPSecurityFormat.
+func (s SecurityFormat) IsOtherHTTPSecurity() bool {
+	return s == OtherHTTPSecurityFormat
 }
 
 // IsOAuth2Security whether s is Oauth2SecurityFormat.

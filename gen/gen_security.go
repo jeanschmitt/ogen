@@ -108,7 +108,17 @@ func (g *Generator) generateSecurityHTTP(
 			},
 		)
 	default:
-		return nil, errors.Wrapf(&ErrNotImplemented{Name: "http security scheme"}, "unsupported scheme %q", scheme)
+		// If scheme is not a well-known one, we include raw http request in the security struct
+		s.Format = ir.OtherHTTPSecurityFormat
+		s.Type.Fields = append(s.Type.Fields,
+			&ir.Field{
+				Name: "Request",
+				Type: ir.Pointer(&ir.Type{
+					Kind: ir.KindStruct,
+					Name: "http.Request",
+				}, ir.NilInvalid),
+			},
+		)
 	}
 
 	s.Type.Fields = append(s.Type.Fields, &ir.Field{
